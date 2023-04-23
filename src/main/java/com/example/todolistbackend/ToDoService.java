@@ -1,7 +1,6 @@
 package com.example.todolistbackend;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,17 +14,14 @@ public class ToDoService {
     private ToDoRepository repository;
 
     public List<ToDo> list(String order) {
-        if(order == null) {
+        if (order == null) {
             return repository.findAll();
         }
-
         switch (order) {
             case "asc":
-                return repository.findAll(
-                        Sort.by(Sort.Direction.ASC, "dueDate"));
+                return repository.findAll(Sort.by(Sort.Direction.ASC,"dueDate"));
             case "desc":
-                return repository.findAll(
-                        Sort.by(Sort.Direction.DESC, "dueDate"));
+                return repository.findAll(Sort.by(Sort.Direction.DESC,"dueDate"));
             default:
                 return repository.findAll();
         }
@@ -34,9 +30,10 @@ public class ToDoService {
     public ToDo get(Integer id) {
         return repository.findById(id)
                 .orElse(null);
+          //      .get();
     }
 
-    public ToDo create(String title, String dueDate) {
+    public ToDo create(String title, String dueDate){
         ToDo newToDo = new ToDo();
         newToDo.setTitle(title);
         newToDo.setDueDate(dueDate);
@@ -44,7 +41,7 @@ public class ToDoService {
         return repository.save(newToDo);
     }
 
-    public ToDo update(ToDo request) {
+    public ToDo update(ToDo request){
         ToDo updateToDo = repository.findById(request.getId())
                         .orElseThrow();
         updateToDo.setTitle(request.getTitle());
@@ -53,7 +50,7 @@ public class ToDoService {
         return repository.save(updateToDo);
     }
 
-    public void delete(Integer id) {
+    public void delete(Integer id){
         repository.deleteById(id);
     }
 
@@ -62,11 +59,9 @@ public class ToDoService {
     }
 
     public List<ToDo> upcoming() {
-
         return repository.findTop3ByStatusIsNotOrderByDueDateAsc(
                 ToDoStatus.COMPLETED
         );
-
     }
 
     public List<ToDo> search(ToDoStatus status) {

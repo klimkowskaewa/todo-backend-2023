@@ -1,7 +1,6 @@
 package com.example.todolistbackend;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,27 +31,30 @@ public class ToDoController {
     }
 
     @PutMapping
-    public ToDo update(@RequestBody ToDo request) {
+    public ToDo update(@RequestBody ToDo request){
         return toDoService.update(request);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Integer id){
         toDoService.delete(id);
     }
 
     @GetMapping("/count/{status}")
-    public int count(@PathVariable ToDoStatus status) {
+    public int count(@PathVariable ToDoStatus status){
         return toDoService.count(status);
     }
 
     @GetMapping("/upcoming/list")
-    public List<ToDo> upcoming() {
+    public List<ToDo> upcoming(){
         return toDoService.upcoming();
     }
 
     @GetMapping("/search/{status}")
-    public List<ToDo> search(@PathVariable ToDoStatus status) {
+    public List<ToDo> search(@PathVariable ToDoStatus status){
         return toDoService.search(status);
     }
+
+
+
 }

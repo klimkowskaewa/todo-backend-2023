@@ -1,9 +1,8 @@
 spring:
   datasource:
-    username: wreczyck
-    password: <password>
-    url: jdbc:sqlserver://morfeusz.wszib.edu.pl:1433;databaseName=wreczyck;encrypt=false;
+    username: user
+    password:
+    url: jdbc:sqlserver://morfeusz.wszib.edu.pl:1433;databaseName=eklimkow;encrypt=false;
   jpa:
     hibernate:
       ddl-auto: update
-
